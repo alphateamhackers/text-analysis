@@ -1,0 +1,26 @@
+{
+  "name": "text-analysis",
+  "version": "0.0.1",
+  "description": "Text processing software",
+  "main": "index.js",
+  "scripts": {
+    "build": "rm -rf dist/* && tsc",
+    "test": "npm run build && jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alphateamhackers/text-analysis.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alphateamhackers/text-analysis/issues"
+  },
+  "homepage": "https://github.com/alphateamhackers/text-analysis#readme",
+  "devDependencies": {
+    "jasmine": "^3.3.1",
+    "moment": "^2.22.2",
+    "typescript": "^3.2.2"
+  },
+  "dependencies": {}
+}
