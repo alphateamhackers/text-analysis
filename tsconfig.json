@@ -1,23 +1,16 @@
 {
-  "compilerOptions": {
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "module": "commonjs",
-    "esModuleInterop": true,
-    "target": "es6",
-    "noImplicitAny": true,
-    "moduleResolution": "node",
-    "sourceMap": false,
-    "outDir": "dist",
-    "baseUrl": "./src",
-    "paths": {
-      "*": [
-        "node_modules/*",
-        "src/types/*"
+    "compilerOptions": {
+      "outDir": "./dist/",
+      "noImplicitAny": true,
+      "module": "commonjs",
+      "target": "es5",
+      "allowJs": true,
+      "types": [],
+      "lib": [ "es2015", "dom" ],
+      "typeRoots": [
+        "node_modules/@types/",
       ]
-    }
-  },
-  "include": [
-    "src/**/*"
-  ]
+    },
+    "include": [ "src/**/*" ],
+    "exclude": [ "node_modules", "test/**/*" ]
 }

@@ -1,26 +1,37 @@
 {
-  "name": "text-analysis",
+  "name": "ath-typescript-boilerplate",
   "version": "0.0.1",
-  "description": "Text processing software",
-  "main": "index.js",
+  "description": "Boilerplate for standalone & lightweight typescript project",
+  "author": "Alphateam Hackers GmbH",
+  "homepage": "https://alphateamhackers.com",
   "scripts": {
-    "build": "rm -rf dist/* && tsc",
-    "test": "npm run build && jasmine"
+    "start": "npm run build && node ./dist/index.js",
+    "build": "node ./node_modules/gulp/bin/gulp.js && node ./node_modules/typescript/bin/tsc"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/alphateamhackers/text-analysis.git"
+  "engines": {
+    "npm": ">=3.0.0"
   },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/alphateamhackers/text-analysis/issues"
+  "dependencies": {
+    "fullcalendar": "^3.9.0",
+    "jquery": "^3.3.1",
+    "sweetalert2": "^7.28.4"
   },
-  "homepage": "https://github.com/alphateamhackers/text-analysis#readme",
   "devDependencies": {
-    "jasmine": "^3.3.1",
-    "moment": "^2.22.2",
-    "typescript": "^3.2.2"
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.4.0",
+    "gulp-clean-css": "^3.10.0",
+    "gulp-concat-css": "^3.1.0",
+    "gulp-copy": "^1.1.0",
+    "gulp-less": "^4.0.1",
+    "run-sequence": "^2.2.1",
+    "style-loader": "^0.22.1",
+    "ts-loader": "^4.4.2",
+    "typescript": "^3.0.1"
   },
-  "dependencies": {}
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
+  },
+  "license": "MIT"
 }

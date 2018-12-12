@@ -1,9 +1,12 @@
-import * as pluralize from 'pluralize'
-/**
-* @Method: Returns the plural form of any noun.
-* @Param {string}
-* @Return {string}
-*/
-export function getPlural(str: any): string {
-  return pluralize.plural(str)
+
+import { ATH } from "./types";
+
+declare var module: any;
+
+export const start = () => {
+    console.log("Hello world!");
+};
+
+if (!module.parent) {
+    start();
 }
