@@ -1,7 +1,6 @@
 {
-  "name": "ath-typescript-boilerplate",
+  "name": "text processing package",
   "version": "0.0.1",
-  "description": "Boilerplate for standalone & lightweight typescript project",
   "author": "Alphateam Hackers GmbH",
   "homepage": "https://alphateamhackers.com",
   "scripts": {
