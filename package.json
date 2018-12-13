@@ -1,6 +1,6 @@
 {
   "name": "ath-text-processing-package",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Alphateam Hackers GmbH",
   "homepage": "https://alphateamhackers.com",
   "main": "dist/index.js",
