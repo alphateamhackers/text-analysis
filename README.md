@@ -19,6 +19,7 @@ Any HTML text
 
 ## Outputs
 
+```asciidoc
 {
  readTime: number,
  keywords: {
@@ -35,10 +36,12 @@ compressed: string
   textImageRatio: number
   plain: string
 }
+```
 
 
 ## Interface
 
+```asciidoc
 interface TextAnalyzer {
   getReadTime: () => Text
   getPlainText: () => Text
@@ -47,6 +50,7 @@ interface TextAnalyzer {
   extractKeywords: (noOfWordsInKeyword) => Keywords  
   analyze: () => TextAnalysis // get complete analysis
 }
+```
 
 ## Install
 ```
