@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "author": "Alphateam Hackers GmbH",
   "homepage": "https://alphateamhackers.com",
+  "main": "dist/index.js",
   "scripts": {
     "start": "npm run build && node ./dist/index.js",
     "build": "node ./node_modules/gulp/bin/gulp.js && node ./node_modules/typescript/bin/tsc"
