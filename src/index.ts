@@ -1,12 +1,18 @@
 import { ITextAnalyzer } from "./types";
+import { calcReadTime } from "./readTime";
+
 const h2p = require('html2plaintext');
 
-export const textAnalyzer: ITextAnalyzer = {
-  getPlainText: (html: string): string => {
-    return h2p(html).replace(/\s\s+/g, ' ');
-  },
+const getPlainText = (html: string): string => {
+  return h2p(html).replace(/\s\s+/g, ' ');
+}
 
-  getReadTime: (html: string): string => {
-    return '';//extractor.lazy(html).text();
-  }
+const getReadTime = (html: string): number => {
+  const plainText = getPlainText(html);
+  return calcReadTime(plainText);
+}
+
+export const textAnalyzer: ITextAnalyzer = {
+  getPlainText,
+  getReadTime
 };
