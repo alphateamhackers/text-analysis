@@ -1,13 +1,12 @@
 import { ITextAnalyzer } from "./types";
-const extractor = require("unfluff");
+const h2p = require('html2plaintext');
 
-export const GetTextAnalyzer: ITextAnalyzer = {
+export const textAnalyzer: ITextAnalyzer = {
   getPlainText: (html: string): string => {
-    return extractor.lazy(html).text();
+    return h2p(html).replace(/\s\s+/g, ' ');
   },
+
   getReadTime: (html: string): string => {
-    return extractor.lazy(html).text();
+    return '';//extractor.lazy(html).text();
   }
 };
-
-console.log(extractor);

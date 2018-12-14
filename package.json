@@ -14,8 +14,7 @@
   },
   "dependencies": {
     "@types/node": "^10.12.15",
-    "html2plaintext": "^2.1.0",
-    "unfluff": "^3.2.0"
+    "html2plaintext": "^2.1.0"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
