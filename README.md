@@ -54,7 +54,7 @@ interface TextAnalyzer {
 
 ## Install
 ```
-npm install
+npm i ath-text-processing-package
 ```
 
 ## Build proccess

@@ -1,12 +1,13 @@
+import { ITextAnalyzer } from "./types";
+const extractor = require("unfluff");
 
-import { ATH } from "./types";
-
-declare var module: any;
-
-export const start = () => {
-    console.log("Hello world!");
+export const GetTextAnalyzer: ITextAnalyzer = {
+  getPlainText: (html: string): string => {
+    return extractor.lazy(html).text();
+  },
+  getReadTime: (html: string): string => {
+    return extractor.lazy(html).text();
+  }
 };
 
-if (!module.parent) {
-    start();
-}
+console.log(extractor);
