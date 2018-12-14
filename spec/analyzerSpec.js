@@ -11,6 +11,7 @@ let tstData = {
 const txtAnalyzer = txtAnalyzerModule.textAnalyzer;
 
 describe('text analyzer', function() {
+
   it('plain text should be extracted correctly', (done) => {
 
     for (const key in tstData) {
@@ -42,4 +43,15 @@ describe('text analyzer', function() {
 
     done();
   });
+
+  it('n-gramms extracted correctly', (done) => {
+    const text = "A quick brown fox jumps over the lazy old bartender who said 'Hi!' as a response to the visitor who presumably assaulted the maid's brother, because he didn't pay his debts in time. In time in time does really mean in time. Too late is too early? Nonsense! 'Too late is too early' does not make any sense.";
+
+    const keyWords = txtAnalyzer.extractKeywords(text);
+    expect(keyWords[0][0].word).toBe('time');
+    expect(keyWords[0][0].count).toBe(4);
+
+    done();
+  });
+
 })

@@ -1,3 +1,5 @@
+// https://github.com/ngryman/reading-time/blob/master/lib/reading-time.js
+
 const ansiWordBound = (c: string): boolean => {
   return (
     (' ' == c) ||

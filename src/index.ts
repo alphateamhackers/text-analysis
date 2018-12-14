@@ -1,5 +1,7 @@
 import { ITextAnalyzer } from "./types";
 import { calcReadTime } from "./readTime";
+import { getKeyWords } from "./keywords";
+
 
 const h2p = require('html2plaintext');
 
@@ -12,7 +14,13 @@ const getReadTime = (html: string): number => {
   return calcReadTime(plainText);
 }
 
+const extractKeywords = (html: string, noOfWordsInKeyword: number) => {
+  const plainText = getPlainText(html);
+  return getKeyWords(plainText);
+}
+
 export const textAnalyzer: ITextAnalyzer = {
   getPlainText,
-  getReadTime
+  getReadTime,
+  extractKeywords
 };
