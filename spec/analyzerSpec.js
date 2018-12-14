@@ -45,11 +45,14 @@ describe('text analyzer', function() {
   });
 
   it('n-gramms extracted correctly', (done) => {
-    const text = "A quick brown fox jumps over the lazy old bartender who said 'Hi!' as a response to the visitor who presumably assaulted the maid's brother, because he didn't pay his debts in time. In time in time does really mean in time. Too late is too early? Nonsense! 'Too late is too early' does not make any sense.";
+    const text = "a b c d, a b c d, a b c d e.A quick brown fox jumps over the lazy old bartender who said 'Hi!' as a response to the visitor who presumably assaulted the maid's brother, because he didn't pay his debts in time. In time in time does really mean in time. Too late is too early? Nonsense! 'Too late is too early' does not make any sense.";
 
     const keyWords = txtAnalyzer.extractKeywords(text);
-    expect(keyWords[0][0].word).toBe('time');
-    expect(keyWords[0][0].count).toBe(4);
+    expect(keyWords[0][0].word).toBe('a');
+    expect(keyWords[0][0].count).toBe(5);
+
+    expect(keyWords[3][0].word).toBe('a b c d');
+    expect(keyWords[3][0].count).toBe(3);
 
     done();
   });

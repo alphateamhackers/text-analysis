@@ -10,18 +10,18 @@ const sortAscendingF = (x: any, y: any) => {
 * takeTopN - top N most frequent words
 * wordsAmount - nGramms size (e.g. 3 - "word1 word2 word3")
 * ignoreCase - case-sensitivity
+* regExAllowedChars - pattern to select valid characters, invalid characters are replaced with a whitespace
 */
 export const getKeyWords = (
   plainText: string,
   atLeast: number = 2,
-  takeTopN: number = 3,
-  wordsAmount: number = 3,
-  ignoreCase = true
+  takeTopN: number = 10,
+  wordsAmount: number = 5,
+  ignoreCase = true,
+  regExAllowedChars = /[^a-zA-Z'\-]+/g
 ) => {
 
-  const
-    numWords = wordsAmount + 1, // show statistics for one to .. words, we start counting at 1 instead of 0
-    REallowedChars = /[^a-zA-Z'\-]+/g; // RE pattern to select valid characters. Invalid characters are replaced with a whitespace
+  const numWords = wordsAmount + 1; // show statistics for one to .. words, we start counting at 1 instead of 0
 
   let textlen = 1, len, s,
     keys: any[] = [null], // "keys[0] = null", a word boundary with length zero is empty
@@ -31,7 +31,7 @@ export const getKeyWords = (
     keys.push({});
   }
 
-  plainText = plainText.replace(REallowedChars, " ") // remove all irrelevant characters
+  plainText = plainText.replace(regExAllowedChars, " ") // remove all irrelevant characters
     .replace(/^\s+/, "").replace(/\s+$/, "");
 
   // Create a hash
@@ -66,7 +66,7 @@ export const getKeyWords = (
   let words: any[] = [];
   for (let k = 1; k < numWords; k++) {
     results[k].sort(sortAscendingF); // sorts results
-    words.push(results[k].splice(1, takeTopN)); // taking top N words
+    words.push(results[k].splice(0, takeTopN)); // taking top N words
   }
 
   return words;
