@@ -78,4 +78,18 @@ describe('text analyzer', function() {
     done();
   });
 
+
+  it('should calculate vulgarityIndex correctly', (done) => {
+    const textGood = "A quick brown fox jumps over the lazy old bartender.",
+      textBad = "ash0le";
+
+    let vulgarityIndex = txtAnalyzer.vulgarityIndex(textGood);
+    expect(vulgarityIndex).toBe(0);
+
+    vulgarityIndex = txtAnalyzer.vulgarityIndex(textBad);
+    expect(vulgarityIndex).toBe(1);
+
+    done();
+  });
+
 })
