@@ -57,4 +57,25 @@ describe('text analyzer', function() {
     done();
   });
 
+  it('recognise a language of the text', (done) => {
+    const textEn = "A quick brown fox jumps over the lazy old bartender.",
+      textDe = "Node.js ist eine serverseitige Plattform in der Softwareentwicklung zum Betrieb von Netzwerkanwendungen.",
+      textFr = "Node.js est une plateforme logicielle libre et événementielle en JavaScript orientée vers les applications réseau qui doivent pouvoir monter en charge.",
+      textNl = "Node.js is een softwareplatform waarop men applicaties kan ontwikkelen en draaien.";
+
+    let textLang = txtAnalyzer.analyzeLang(textEn);
+    expect(textLang).toBe('eng');
+
+    textLang = txtAnalyzer.analyzeLang(textDe);
+    expect(textLang).toBe('deu');
+
+    textLang = txtAnalyzer.analyzeLang(textFr);
+    expect(textLang).toBe('fra');
+
+    textLang = txtAnalyzer.analyzeLang(textNl);
+    expect(textLang).toBe('nld');
+
+    done();
+  });
+
 })
