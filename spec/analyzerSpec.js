@@ -92,4 +92,24 @@ describe('text analyzer', function() {
     done();
   });
 
+  it('should extract images correctly', (done) => {
+    const imgHtml = `<img src='smiley1.gif' alt='Smiley face' height='42' width='42'>
+    <img src='smiley2.gif' alt='Smiley face' height='42' width='42'>
+    <img src='smiley3.gif' alt='Smiley face' height='42' width='42'>`;
+
+    let images = txtAnalyzer.extractImages(imgHtml);
+    expect(images.length).toBe(3);
+    expect(images[0]).toBe('smiley1.gif');
+
+    const imgHtmlReverse = `<img src='smiley3.gif' alt='Smiley face' height='42' width='42'>
+    <img src='smiley2.gif' alt='Smiley face' height='42' width='42'>
+    <img src='smiley1.gif' alt='Smiley face' height='42' width='42'>`;
+
+    images = txtAnalyzer.extractImages(imgHtmlReverse);
+    expect(images.length).toBe(3);
+    expect(images[0]).toBe('smiley3.gif');
+
+    done();
+  });
+
 })

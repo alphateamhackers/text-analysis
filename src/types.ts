@@ -5,7 +5,6 @@ export interface ITextAnalyzer {
   extractKeywords: (html: string, noOfWordsInKeyword: number) => any;
   analyzeLang: (html: string) => string;
   vulgarityIndex: (html: string) => number;
-  // extractImages: () => Images;
-  // analyzeLang: () => Lang;
+  extractImages: (html: string) => string[];
   // analyze: () => TextAnalysis;
 }
