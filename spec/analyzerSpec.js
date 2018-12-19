@@ -8,6 +8,12 @@ let tstData = {
   "img test": '<img src="wrongname.gif" alt="Flowers in Chania"><p>img test</p>'
 };
 
+const imgHtmlArr = [
+  "<img src='smiley1.gif' alt='Smiley face' height='42' width='42'>",
+  "<img src='smiley2.gif' alt='Smiley face' height='42' width='42'>",
+  "<img src='smiley3.gif' alt='Smiley face' height='42' width='42'>"
+];
+
 const txtAnalyzer = txtAnalyzerModule.textAnalyzer;
 
 describe('text analyzer', function() {
@@ -108,6 +114,40 @@ describe('text analyzer', function() {
     images = txtAnalyzer.extractImages(imgHtmlReverse);
     expect(images.length).toBe(3);
     expect(images[0]).toBe('smiley3.gif');
+
+    done();
+  });
+
+  it('should extract images correctly', (done) => {
+    const imgHtml = imgHtmlArr.join('')
+    let images = txtAnalyzer.extractImages(imgHtml);
+    expect(images.length).toBe(3);
+    expect(images[0]).toBe('smiley1.gif');
+
+    const imgHtmlReverse = imgHtmlArr.reverse().join('');
+
+    images = txtAnalyzer.extractImages(imgHtmlReverse);
+    expect(images.length).toBe(3);
+    expect(images[0]).toBe('smiley3.gif');
+
+    done();
+  });
+
+
+  it('should calculate img text ratio', (done) => {
+    const imgHtml = imgHtmlArr.join('')
+
+    let imgTxtRatio = txtAnalyzer.textImageRatio(imgHtml);
+    expect(imgTxtRatio).toBe(0); // only img
+
+    imgTxtRatio = txtAnalyzer.textImageRatio(tstData["simple test"]);
+    expect(imgTxtRatio).toBe(1); // only txt
+
+    imgTxtRatio = txtAnalyzer.textImageRatio("");
+    expect(imgTxtRatio).toBe(0); // empty html
+
+    imgTxtRatio = txtAnalyzer.textImageRatio(imgHtml + tstData["simple test"]);
+    expect(imgTxtRatio).toBe(3.67); // img + txt
 
     done();
   });

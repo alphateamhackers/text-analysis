@@ -2,7 +2,6 @@ import { ITextAnalyzer } from "./types";
 import { calcReadTime } from "./readTime";
 import { getKeyWords } from "./keywords";
 
-
 const h2p = require('html2plaintext'),
   franc = require('franc-min'),
   BadWordsFilter = require('bad-words'),
@@ -47,11 +46,30 @@ const extractImages = (html: string): string[] => {
   );
 }
 
+const textImageRatio = (html: string): number => {
+  const plainText: string = getPlainText(html),
+    images: string[] = extractImages(html);
+
+  const weHaveImages: boolean = images.length > 0,
+    weHaveText: boolean = plainText.length > 0;
+
+  let result: number;
+  if (weHaveImages && weHaveText) {
+    // if we have both text and images - we calculate the reatio
+    result = Math.round((plainText.length / images.length) * 100) / 100;
+  } else {
+    result = (!weHaveText && !weHaveImages) ? 0 : // neither text nor imgs
+      (weHaveImages) ? 0 : 1; // only imgs - 0, only txt - 1
+  }
+  return result;
+}
+
 export const textAnalyzer: ITextAnalyzer = {
   getPlainText,
   getReadTime,
   extractKeywords,
   analyzeLang,
   vulgarityIndex,
-  extractImages
+  extractImages,
+  textImageRatio
 };

@@ -6,5 +6,6 @@ export interface ITextAnalyzer {
   analyzeLang: (html: string) => string;
   vulgarityIndex: (html: string) => number;
   extractImages: (html: string) => string[];
+  textImageRatio: (html: string) => number;
   // analyze: () => TextAnalysis;
 }
