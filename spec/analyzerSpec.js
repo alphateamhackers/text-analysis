@@ -1,4 +1,5 @@
-const txtAnalyzerModule = require('../dist');
+const txtAnalyzerModule = require('../dist'),
+  pako = require('pako');
 
 let tstData = {
   "simple test": "<p>simple test</p>",
@@ -148,6 +149,28 @@ describe('text analyzer', function() {
 
     imgTxtRatio = txtAnalyzer.textImageRatio(imgHtml + tstData["simple test"]);
     expect(imgTxtRatio).toBe(3.67); // img + txt
+
+    done();
+  });
+
+  it('should correctly get compressed text', (done) => {
+
+    let longHtml = ""
+    for (let i = 0; i < 1000; i++) {
+      longHtml += tstData["simple test"];
+    }
+
+    const plainText = txtAnalyzer.getPlainText(longHtml),
+      compPlnTxt = txtAnalyzer.getPlainTextCompressed(longHtml);
+
+    const plnTextFromCompPlnTxt = pako.inflate(compPlnTxt, {
+      to: 'string'
+    });
+
+    // Expect decompressed plain text to be eq plain text
+    expect(plnTextFromCompPlnTxt).toBe(plainText);
+    // Expect compressed string to be shorter
+    expect(compPlnTxt.length < plainText.length).toBe(true);
 
     done();
   });

@@ -5,7 +5,8 @@ import { getKeyWords } from "./keywords";
 const h2p = require('html2plaintext'),
   franc = require('franc-min'),
   BadWordsFilter = require('bad-words'),
-  cheerio = require('cheerio');
+  cheerio = require('cheerio'),
+  pako = require('pako');
 
 const badWordsFilter = new BadWordsFilter();
 
@@ -64,12 +65,18 @@ const textImageRatio = (html: string): number => {
   return result;
 }
 
+const getPlainTextCompressed = (html: string): string => {
+  const plainText = getPlainText(html);
+  return pako.deflate(plainText, { to: 'string' });
+}
+
 export const textAnalyzer: ITextAnalyzer = {
   getPlainText,
+  getPlainTextCompressed,
   getReadTime,
   extractKeywords,
   analyzeLang,
   vulgarityIndex,
   extractImages,
-  textImageRatio
+  textImageRatio,
 };

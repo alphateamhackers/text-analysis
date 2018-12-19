@@ -17,7 +17,8 @@
     "bad-words": "^3.0.0",
     "cheerio": "^1.0.0-rc.2",
     "franc-min": "^4.0.0",
-    "html2plaintext": "^2.1.0"
+    "html2plaintext": "^2.1.0",
+    "pako": "^1.0.7"
   },
   "devDependencies": {
     "gulp": "^3.9.1",

@@ -7,5 +7,6 @@ export interface ITextAnalyzer {
   vulgarityIndex: (html: string) => number;
   extractImages: (html: string) => string[];
   textImageRatio: (html: string) => number;
+  getPlainTextCompressed: (html: string) => string;
   // analyze: () => TextAnalysis;
 }
