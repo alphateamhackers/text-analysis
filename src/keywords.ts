@@ -1,5 +1,7 @@
 // https://stackoverflow.com/questions/7085454/extract-keyphrases-from-text-1-4-word-ngrams
 
+import { IKeywordCount } from "./types";
+
 const sortAscendingF = (x: any, y: any) => {
   return y.count - x.count;
 };
@@ -19,13 +21,13 @@ export const getKeyWords = (
   wordsAmount: number = 5,
   ignoreCase = true,
   regExAllowedChars = /[^a-zA-Z'\-]+/g
-) => {
+): IKeywordCount[] => {
 
   const numWords = wordsAmount + 1; // show statistics for one to .. words, we start counting at 1 instead of 0
 
   let textlen = 1, len, s,
     keys: any[] = [null], // "keys[0] = null", a word boundary with length zero is empty
-    results = [];
+    results: IKeywordCount[][] = [];
 
   for (let i = 1; i <= numWords; i++) {
     keys.push({});

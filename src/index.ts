@@ -1,4 +1,4 @@
-import { ITextAnalyzer } from "./types";
+import { ITextAnalyzer, ITextAnalysis, IKeywordCount } from "./types";
 import { calcReadTime } from "./readTime";
 import { getKeyWords } from "./keywords";
 
@@ -19,7 +19,7 @@ const getReadTime = (html: string): number => {
   return calcReadTime(plainText);
 }
 
-const extractKeywords = (html: string, noOfWordsInKeyword: number): any => {
+const extractKeywords = (html: string, noOfWordsInKeyword: number): IKeywordCount[] => {
   const plainText = getPlainText(html);
   return getKeyWords(plainText);
 }
@@ -70,6 +70,21 @@ const getPlainTextCompressed = (html: string): string => {
   return pako.deflate(plainText, { to: 'string' });
 }
 
+const analyze = (html: string): ITextAnalysis => {
+  let result: ITextAnalysis;
+
+  result.plainText = getPlainText(html);
+  result.readTime = calcReadTime(result.plainText);
+  result.keywords = getKeyWords(result.plainText);
+  result.lang = franc(result.plainText);
+  result.vulgarityIndex = badWordsFilter.isProfane(result.plainText) ? 1 : 0;
+  result.images = extractImages(html);
+  result.textImageRatio = textImageRatio(html);
+  result.plainTextCompressed = pako.deflate(result.plainText, { to: 'string' });
+
+  return result;
+}
+
 export const textAnalyzer: ITextAnalyzer = {
   getPlainText,
   getPlainTextCompressed,
@@ -79,4 +94,5 @@ export const textAnalyzer: ITextAnalyzer = {
   vulgarityIndex,
   extractImages,
   textImageRatio,
+  analyze
 };
