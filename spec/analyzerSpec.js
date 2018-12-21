@@ -175,4 +175,19 @@ describe('text analyzer', function() {
     done();
   });
 
+  it('should correctly perform analyze', (done) => {
+    const res = txtAnalyzer.analyze(tstData["img test"]);
+
+    expect(res.readTime).toBeDefined();
+    expect(res.plainText).toBeDefined();
+    expect(res.keywords).toBeDefined();
+    expect(res.lang).toBeDefined();
+    expect(res.vulgarityIndex).toBeDefined();
+    expect(res.images).toBeDefined();
+    expect(res.textImageRatio).toBeDefined();
+    expect(res.plainTextCompressed).toBeDefined();
+
+    done();
+  });
+
 })

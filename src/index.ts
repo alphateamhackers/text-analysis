@@ -83,18 +83,21 @@ const getPlainTextCompressed = (html: string): string => {
 }
 
 const analyze = (html: string): ITextAnalysis => {
-  let result: ITextAnalysis;
+  const plainText = getPlainText(html),
+    images = extractImages(html);
 
-  result.plainText = getPlainText(html);
-  result.readTime = calcReadTime(result.plainText);
-  result.keywords = getKeyWords(result.plainText);
-  result.lang = franc(result.plainText);
-  result.vulgarityIndex = vulgarityIndexInternal(result.plainText);
-  result.images = extractImages(html);
-  result.textImageRatio = textImageRatioInternal(result.plainText, result.images);
-  result.plainTextCompressed = getPlainTextCompressedInternal(result.plainText);
+  const res: ITextAnalysis = {
+    plainText: plainText,
+    readTime: calcReadTime(plainText),
+    keywords: getKeyWords(plainText),
+    lang: franc(plainText),
+    vulgarityIndex: vulgarityIndexInternal(plainText),
+    images: extractImages(html),
+    textImageRatio: textImageRatioInternal(plainText, images),
+    plainTextCompressed: getPlainTextCompressedInternal(plainText)
+  }
 
-  return result;
+  return res;
 }
 
 export const textAnalyzer: ITextAnalyzer = {
