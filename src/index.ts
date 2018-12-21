@@ -29,9 +29,13 @@ const analyzeLang = (html: string): string => {
   return franc(plainText);
 }
 
+const vulgarityIndexInternal = (plainText: string): number => {
+  return badWordsFilter.isProfane(plainText) ? 1 : 0; // can be extended to range 0..1 if needed
+}
+
 const vulgarityIndex = (html: string): number => {
   const plainText = getPlainText(html);
-  return badWordsFilter.isProfane(plainText) ? 1 : 0; // can be extended to range 0..1 if needed
+  return vulgarityIndexInternal(plainText);
 }
 
 const extractImages = (html: string): string[] => {
@@ -47,17 +51,14 @@ const extractImages = (html: string): string[] => {
   );
 }
 
-const textImageRatio = (html: string): number => {
-  const plainText: string = getPlainText(html),
-    images: string[] = extractImages(html);
-
+const textImageRatioInternal = (txt: string, images: string[]): number => {
   const weHaveImages: boolean = images.length > 0,
-    weHaveText: boolean = plainText.length > 0;
+    weHaveText: boolean = txt.length > 0;
 
   let result: number;
   if (weHaveImages && weHaveText) {
     // if we have both text and images - we calculate the reatio
-    result = Math.round((plainText.length / images.length) * 100) / 100;
+    result = Math.round((txt.length / images.length) * 100) / 100;
   } else {
     result = (!weHaveText && !weHaveImages) ? 0 : // neither text nor imgs
       (weHaveImages) ? 0 : 1; // only imgs - 0, only txt - 1
@@ -65,9 +66,20 @@ const textImageRatio = (html: string): number => {
   return result;
 }
 
+const textImageRatio = (html: string): number => {
+  const plainText: string = getPlainText(html),
+    images: string[] = extractImages(html);
+
+  return textImageRatioInternal(plainText, images);
+}
+
+const getPlainTextCompressedInternal = (plainText: string): string => {
+  return pako.deflate(plainText, { to: 'string' });
+}
+
 const getPlainTextCompressed = (html: string): string => {
   const plainText = getPlainText(html);
-  return pako.deflate(plainText, { to: 'string' });
+  return getPlainTextCompressedInternal(plainText);
 }
 
 const analyze = (html: string): ITextAnalysis => {
@@ -77,10 +89,10 @@ const analyze = (html: string): ITextAnalysis => {
   result.readTime = calcReadTime(result.plainText);
   result.keywords = getKeyWords(result.plainText);
   result.lang = franc(result.plainText);
-  result.vulgarityIndex = badWordsFilter.isProfane(result.plainText) ? 1 : 0;
+  result.vulgarityIndex = vulgarityIndexInternal(result.plainText);
   result.images = extractImages(html);
-  result.textImageRatio = textImageRatio(html);
-  result.plainTextCompressed = pako.deflate(result.plainText, { to: 'string' });
+  result.textImageRatio = textImageRatioInternal(result.plainText, result.images);
+  result.plainTextCompressed = getPlainTextCompressedInternal(result.plainText);
 
   return result;
 }
